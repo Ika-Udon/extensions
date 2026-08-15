@@ -7,7 +7,8 @@ const state = {
   categories: [DEFAULT_CATEGORY],
   selectedCategory: DEFAULT_CATEGORY,
   searchQuery: "",
-  sortBy: "relevance"
+  sortBy: "relevance",
+  dataLoaded: false
 };
 
 const elements = {
@@ -53,9 +54,9 @@ function currentId() {
 }
 
 function hideViews() {
-  const views = [elements.list, elements.detail, elements.notFound];
+  const views = [elements.list, elements.detail, elements.notFound, elements.loading, elements.error];
   for (const view of views) {
-    view.hidden = true;
+    if (view) view.hidden = true;
   }
 }
 
@@ -182,6 +183,13 @@ function createExtensionCard(extension) {
 }
 
 function renderList() {
+  // If data not yet loaded, show loading instead of empty messages
+  if (!state.dataLoaded) {
+    hideViews();
+    if (elements.loading) elements.loading.hidden = false;
+    return;
+  }
+
   hideViews();
   elements.list.hidden = false;
 
@@ -247,6 +255,13 @@ function createChangelogTimeline(changelog) {
 }
 
 function renderDetail(extension) {
+  // If data not yet loaded, show loading instead
+  if (!state.dataLoaded) {
+    hideViews();
+    if (elements.loading) elements.loading.hidden = false;
+    return;
+  }
+
   hideViews();
   elements.detail.hidden = false;
 
@@ -362,11 +377,25 @@ function renderDetail(extension) {
 }
 
 function renderNotFound() {
+  // Don't show not-found while data is still loading
+  if (!state.dataLoaded) {
+    hideViews();
+    if (elements.loading) elements.loading.hidden = false;
+    return;
+  }
+
   hideViews();
   elements.notFound.hidden = false;
 }
 
 function renderRoute() {
+  // If data not loaded yet, show loading and wait
+  if (!state.dataLoaded) {
+    hideViews();
+    if (elements.loading) elements.loading.hidden = false;
+    return;
+  }
+
   const id = currentId();
   if (!id || window.location.hash === "#/") {
     renderList();
@@ -422,6 +451,13 @@ async function fetchExtensionData(extensionId) {
 
 async function start() {
   try {
+    // Ensure loading indicator is visible while we fetch
+    if (elements.loading) elements.loading.hidden = false;
+    if (elements.list) elements.list.hidden = true;
+    if (elements.detail) elements.detail.hidden = true;
+    if (elements.notFound) elements.notFound.hidden = true;
+    if (elements.error) elements.error.hidden = true;
+
     const response = await fetch(`data/index.json?t=${Date.now()}`, { cache: "no-store" });
     if (!response.ok) {
       throw new Error(`インデックスデータ (data/index.json) を取得できませんでした (HTTP ${response.status})。`);
@@ -449,20 +485,22 @@ async function start() {
     }
 
     state.extensions = validExtensions;
+    state.dataLoaded = true;
 
-    elements.loading.hidden = true;
+    if (elements.loading) elements.loading.hidden = true;
     setupEventListeners();
     renderCategoryChips();
     renderRoute();
   } catch (error) {
-    elements.loading.hidden = true;
-    elements.error.hidden = false;
+    if (elements.loading) elements.loading.hidden = true;
+    if (elements.error) elements.error.hidden = false;
     if (window.location.protocol === "file:") {
       elements.error.textContent =
         "このページはファイルとして直接開かれています。GitHub Pagesで公開したURLを開くか、ローカルWebサーバー（VS Code Live Server等）から開いてください。";
     } else {
       elements.error.textContent = `表示の準備中に問題が発生しました: ${error.message}`;
     }
+    console.error(error);
   }
 }
 
