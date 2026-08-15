@@ -172,11 +172,11 @@ a {
 }
 
 /* ==========================================================================
-   ヒーロー & 検索セクション
+   検索 & フィルターセクション
    ========================================================================== */
 .hero-section {
   background: linear-gradient(180deg, #ffffff 0%, var(--bg-subtle) 100%);
-  padding: 56px 24px 36px;
+  padding: 32px 24px 28px;
   text-align: center;
   border-bottom: 1px solid var(--border-light);
 }
@@ -187,21 +187,6 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.hero-title {
-  margin: 0 0 10px;
-  font-size: clamp(26px, 4.5vw, 40px);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-}
-
-.hero-subtitle {
-  margin: 0 0 32px;
-  font-size: clamp(14px, 2vw, 16px);
-  color: var(--text-muted);
-  font-weight: 400;
 }
 
 /* Google風 ピル型検索バー */
