@@ -117,21 +117,6 @@ a {
   color: var(--text-primary);
 }
 
-.brand-dots {
-  display: inline-flex;
-  gap: 3px;
-  align-items: center;
-}
-.brand-dots i {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-.dot-blue { background: var(--google-blue); }
-.dot-red { background: var(--google-red); }
-.dot-yellow { background: var(--google-yellow); }
-.dot-green { background: var(--google-green); }
-
 .brand-title strong {
   font-weight: 700;
   color: var(--google-blue);
