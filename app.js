@@ -296,14 +296,7 @@ function renderDetail(extension) {
   downloadBtn.setAttribute("download", "");
   downloadBtn.textContent = "JavaScriptをダウンロード";
 
-  const openEditorBtn = document.createElement("a");
-  openEditorBtn.className = "btn btn-outline";
-  openEditorBtn.href = `https://turbowarp.org/editor?extension=${encodeURIComponent(new URL(extension.file, window.location.href).href)}`;
-  openEditorBtn.target = "_blank";
-  openEditorBtn.rel = "noopener noreferrer";
-  openEditorBtn.textContent = "TurboWarpで開く ↗";
-
-  actions.append(downloadBtn, openEditorBtn);
+  actions.append(downloadBtn);
   headerInfo.append(titleWrap, metaText, summary, actions);
   headerRow.append(icon, headerInfo);
 
