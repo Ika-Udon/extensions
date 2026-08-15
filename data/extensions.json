@@ -1,0 +1,23 @@
+{
+  "extensions": [
+    {
+      "id": "sample-extension",
+      "name": "サンプル拡張機能",
+      "summary": "サイトの表示とダウンロードを確認するための、最小構成のサンプルです。",
+      "description": "これは配布サイト用のサンプル拡張機能です。\n実際の拡張機能を追加するときは、この項目と extensions/sample-extension.js を削除または置き換えてください。",
+      "file": "extensions/sample-extension.js",
+      "version": "1.0.0",
+      "updatedAt": "2026-08-16",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-08-16",
+          "changes": [
+            "配布サイトの動作確認用サンプルを追加しました。",
+            "「こんにちは」と表示するブロックを追加しました。"
+          ]
+        }
+      ]
+    }
+  ]
+}
