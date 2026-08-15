@@ -1,10 +1,21 @@
 {
+  "categories": [
+    "すべて",
+    "ユーティリティ",
+    "描画・演出",
+    "通信・データ",
+    "サウンド",
+    "ゲーム開発"
+  ],
   "extensions": [
     {
       "id": "sample-extension",
       "name": "サンプル拡張機能",
-      "summary": "サイトの表示とダウンロードを確認するための、最小構成のサンプルです。",
-      "description": "これは配布サイト用のサンプル拡張機能です。\n実際の拡張機能を追加するときは、この項目と extensions/sample-extension.js を削除または置き換えてください。",
+      "author": "Ika-Udon",
+      "category": "ユーティリティ",
+      "tags": ["TurboWarp", "軽量", "クライアント", "公式サンプル"],
+      "summary": "サイトの表示とダウンロードを確認するための、最小構成のサンプル拡張機能です。",
+      "description": "これはTurboWarp拡張機能ライブラリ用の公式サンプル拡張機能です。\nプロジェクトに追加することで「こんにちは」と返すブロックが使えるようになります。\n実際の拡張機能を追加する際は、この項目を参考に data/extensions.json を更新してください。",
       "file": "extensions/sample-extension.js",
       "version": "1.0.0",
       "updatedAt": "2026-08-16",
@@ -15,6 +26,50 @@
           "changes": [
             "配布サイトの動作確認用サンプルを追加しました。",
             "「こんにちは」と表示するブロックを追加しました。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "canvas-draw",
+      "name": "キャンバス描画",
+      "author": "Ika-Udon",
+      "category": "描画・演出",
+      "tags": ["TurboWarp", "グラフィック", "高パフォーマンス", "2D描画"],
+      "summary": "ステージ上に円や線、図形を高速に描画・クリアできる拡張機能です。",
+      "description": "ステージ上に自由な色・サイズで図形を描画するための軽量な拡張機能です。\nペン機能よりも高速に動作し、演出やミニゲームの背景描画に最適です。",
+      "file": "extensions/canvas-draw.js",
+      "version": "1.0.0",
+      "updatedAt": "2026-08-16",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-08-16",
+          "changes": [
+            "初期バージョンをリリースしました。",
+            "円の描画ブロックとキャンバスクリアブロックを追加しました。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "network-fetch",
+      "name": "ネットワーク通信",
+      "author": "Ika-Udon",
+      "category": "通信・データ",
+      "tags": ["TurboWarp", "HTTP", "API", "Web"],
+      "summary": "外部Web APIやサーバーからテキスト・JSONデータを非同期で取得する拡張機能です。",
+      "description": "外部Webサービスと通信してデータを取得できる拡張機能です。\n天気情報やAPIレスポンスの取得、オンライン連携プロジェクトの作成に役立ちます。",
+      "file": "extensions/network-fetch.js",
+      "version": "1.0.0",
+      "updatedAt": "2026-08-16",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-08-16",
+          "changes": [
+            "初期バージョンをリリースしました。",
+            "非同期fetch_textブロックを追加しました。"
           ]
         }
       ]

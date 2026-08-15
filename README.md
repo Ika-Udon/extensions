@@ -1,6 +1,6 @@
 # TurboWarp 拡張機能ライブラリ
 
-GitHub Pagesで公開する、TurboWarp拡張機能の静的な配布サイトです。
+GitHub Pagesで公開する、TurboWarp拡張機能の静的な配布サイトです。Modrinth風のモダンなUIを採用しています。
 
 ## GitHub Pagesで公開する
 
@@ -13,12 +13,15 @@ GitHub Pagesで公開する、TurboWarp拡張機能の静的な配布サイト�
 
 ## 拡張機能を追加・更新する
 
-最新のJavaScriptファイルだけを `extensions/` に置き、`data/extensions.json` の `extensions` 配列に項目を追加または更新します。サンプルの1件を複製して使うのが簡単です。
+最新のJavaScriptファイルだけを `extensions/` に置き、`data/extensions.json` の `extensions` 配列に項目を追加または更新します。
 
 ```json
 {
   "id": "my-extension",
   "name": "拡張機能の名前",
+  "author": "作成者名",
+  "category": "ユーティリティ",
+  "tags": ["TurboWarp", "便利", "軽量"],
   "summary": "一覧に表示する短い説明",
   "description": "詳細ページに表示する説明。\n改行も使えます。",
   "file": "extensions/my-extension.js",
