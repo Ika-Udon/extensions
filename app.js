@@ -418,21 +418,35 @@ function setupEventListeners() {
   window.addEventListener("hashchange", renderRoute);
 }
 
+async function fetchExtensionData(extensionId) {
+  const url = `data/extensions/${encodeURIComponent(extensionId)}.json`;
+  const response = await fetch(url, { cache: "no-store" });
+  if (!response.ok) {
+    throw new Error(`拡張機能「${extensionId}」のデータを取得できませんでした。`);
+  }
+  return await response.json();
+}
+
 async function start() {
   try {
-    const response = await fetch("data/extensions.json", { cache: "no-store" });
+    const response = await fetch("data/index.json", { cache: "no-store" });
     if (!response.ok) {
-      throw new Error("拡張機能データを取得できませんでした。");
+      throw new Error("インデックスデータ (data/index.json) を取得できませんでした。");
     }
-    const data = await response.json();
-    if (!Array.isArray(data.extensions)) {
-      throw new Error("拡張機能データの形式が正しくありません。");
+    const indexData = await response.json();
+    if (!Array.isArray(indexData.extensions)) {
+      throw new Error("インデックスデータの形式が正しくありません。");
     }
 
-    state.extensions = data.extensions;
-    if (Array.isArray(data.categories)) {
-      state.categories = data.categories;
+    if (Array.isArray(indexData.categories)) {
+      state.categories = indexData.categories;
     }
+
+    const extensions = await Promise.all(
+      indexData.extensions.map((id) => fetchExtensionData(id))
+    );
+
+    state.extensions = extensions;
 
     elements.loading.hidden = true;
     setupEventListeners();

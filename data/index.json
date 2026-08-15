@@ -1,0 +1,16 @@
+{
+  "categories": [
+    "すべて",
+    "ユーティリティ",
+    "描画・演出",
+    "通信・データ",
+    "サウンド",
+    "ゲーム開発"
+  ],
+  "extensions": [
+    "shader-plus",
+    "sample-extension",
+    "canvas-draw",
+    "network-fetch"
+  ]
+}

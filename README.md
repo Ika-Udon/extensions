@@ -1,6 +1,6 @@
 # TurboWarp 拡張機能ライブラリ
 
-GitHub Pagesで公開する、TurboWarp拡張機能の静的な配布サイトです。Google公式サイト風のシンプルで分かりやすいデザインを採用しています。
+GitHub Pagesで公開する、TurboWarp拡張機能の静的な配布サイトです。
 
 ## GitHub Pagesで公開する
 
@@ -13,8 +13,11 @@ GitHub Pagesで公開する、TurboWarp拡張機能の静的な配布サイト�
 
 ## 拡張機能を追加・更新する
 
-最新のJavaScriptファイルだけを `extensions/` に置き、`data/extensions.json` の `extensions` 配列に項目を追加または更新します。
+1. **JavaScriptファイルを配置**: 最新のJSファイルを `extensions/` フォルダに置きます（例: `extensions/my-extension.js`）。
+2. **個別JSONファイルを作成**: `data/extensions/` フォルダ内に拡張機能IDと同じ名前のJSONファイル（例: `data/extensions/my-extension.json`）を作成します。
+3. **インデックスに登録**: `data/index.json` の `extensions` 配列に拡張機能のID（`"my-extension"`）を追加します。
 
+### 個別JSONファイル（`data/extensions/my-extension.json`）の書き方:
 ```json
 {
   "id": "my-extension",
@@ -37,10 +40,9 @@ GitHub Pagesで公開する、TurboWarp拡張機能の静的な配布サイト�
 }
 ```
 
-- `id` は英小文字・数字・ハイフンで、ほかの拡張機能と重複しない値にします。
+- `id` は英小文字・数字・ハイフンで、他の拡張機能と重複しない値にします。
 - `file` はリポジトリ直下からのファイルパスです。
-- バージョンアップ時は、JSファイルを最新版で上書きし、`version`、`updatedAt`、`changelog` を更新します。旧JSファイルは残しません。
-- JSONの文字列内に改行を入れるときは `\n` と書きます。末尾の項目の後にカンマを付けないでください。
+- バージョンアップ時は、JSファイルと該当の `data/extensions/<id>.json` のみを更新します。
 
 ## ローカルで確認する
 

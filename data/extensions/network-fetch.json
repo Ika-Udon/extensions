@@ -1,0 +1,22 @@
+{
+  "id": "network-fetch",
+  "name": "ネットワーク通信",
+  "author": "Ika-Udon",
+  "category": "通信・データ",
+  "tags": ["TurboWarp", "HTTP", "API", "Web"],
+  "summary": "外部Web APIやサーバーからテキスト・JSONデータを非同期で取得する拡張機能です。",
+  "description": "外部Webサービスと通信してデータを取得できる拡張機能です。\n天気情報やAPIレスポンスの取得、オンライン連携プロジェクトの作成に役立ちます。",
+  "file": "extensions/network-fetch.js",
+  "version": "1.0.0",
+  "updatedAt": "2026-08-16",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "date": "2026-08-16",
+      "changes": [
+        "初期バージョンをリリースしました。",
+        "非同期fetch_textブロックを追加しました。"
+      ]
+    }
+  ]
+}
