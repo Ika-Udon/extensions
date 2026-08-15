@@ -3,172 +3,137 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="TurboWarpのための高機能・自作拡張機能ライブラリ" />
+    <meta name="description" content="TurboWarpのためのシンプルで使いやすい拡張機能ライブラリ" />
     <title>TurboWarp 拡張機能ライブラリ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">本文へ移動</a>
 
-    <div class="app-layout">
-      <!-- 左スリムアイコンバー -->
-      <aside class="rail-nav" aria-label="メインナビゲーション">
-        <a class="rail-logo" href="#/" title="TurboWarp 拡張機能ライブラリ">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 2 7 12 12 22 7 12 2" />
-            <polyline points="2 17 12 22 22 17" />
-            <polyline points="2 12 12 17 22 12" />
-          </svg>
+    <!-- ナビゲーションバー -->
+    <header class="site-nav">
+      <div class="nav-container">
+        <a class="site-brand" href="#/" title="TurboWarp 拡張機能">
+          <span class="brand-dots" aria-hidden="true">
+            <i class="dot-blue"></i>
+            <i class="dot-red"></i>
+            <i class="dot-yellow"></i>
+            <i class="dot-green"></i>
+          </span>
+          <span class="brand-title">TurboWarp <strong>Extensions</strong></span>
         </a>
 
-        <div class="rail-group">
-          <a class="rail-item active" href="#/" title="拡張機能を探す">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10" />
-              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-            </svg>
-            <span class="rail-tooltip">探す</span>
+        <nav class="nav-actions">
+          <a class="nav-link" href="https://turbowarp.org/editor" target="_blank" rel="noopener noreferrer">
+            <span>エディターを開く</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
-          <a class="rail-item" href="https://turbowarp.org/editor" target="_blank" rel="noopener noreferrer" title="TurboWarp エディターを開く">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="5 3 19 12 5 21 5 3" />
-            </svg>
-            <span class="rail-tooltip">TurboWarp</span>
+          <a class="btn-github" href="https://github.com/Ika-Udon/extensions" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>GitHub</span>
           </a>
-          <a class="rail-item" href="https://github.com/Ika-Udon/extensions" target="_blank" rel="noopener noreferrer" title="GitHub リポジトリ">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-            </svg>
-            <span class="rail-tooltip">GitHub</span>
-          </a>
-        </div>
-      </aside>
-
-      <!-- メインエリア -->
-      <div class="content-wrapper">
-        <!-- トップバー -->
-        <header class="app-topbar">
-          <div class="topbar-left">
-            <div class="site-title-badge">
-              <span class="pulse-dot"></span>
-              <span class="title-text">TurboWarp Extensions</span>
-            </div>
-            <!-- カテゴリタブ -->
-            <nav id="category-tabs" class="category-tabs" aria-label="カテゴリー一覧"></nav>
-          </div>
-          <div class="topbar-right">
-            <a class="github-pill" href="https://github.com/Ika-Udon/extensions" target="_blank" rel="noopener noreferrer">
-              <span>GitHub</span>
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </a>
-          </div>
-        </header>
-
-        <!-- メインコンテンツ -->
-        <main id="main-content" class="app-main" tabindex="-1">
-          <!-- ローディング & エラー通知 -->
-          <div id="loading" class="state-notice" aria-live="polite">
-            <div class="spinner"></div>
-            <span>拡張機能を読み込んでいます…</span>
-          </div>
-          <div id="error" class="state-notice notice-error" hidden aria-live="assertive"></div>
-
-          <!-- 一覧ビュー -->
-          <div id="list-view" class="list-layout" hidden>
-            <div class="list-main-pane">
-              <!-- 検索 & コントロールバー -->
-              <div class="search-toolbar">
-                <div class="search-input-wrapper">
-                  <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8" />
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                  </svg>
-                  <input id="search-input" type="search" placeholder="拡張機能やタグを検索..." aria-label="拡張機能を検索" autocomplete="off" />
-                  <button id="search-clear" class="search-clear-btn" type="button" aria-label="検索をクリア" hidden>×</button>
-                </div>
-
-                <div class="sort-controls">
-                  <label for="sort-select" class="sort-label">並び替え:</label>
-                  <select id="sort-select" class="custom-select">
-                    <option value="relevance">おすすめ順</option>
-                    <option value="updated">更新日順</option>
-                    <option value="name">名前順</option>
-                  </select>
-                </div>
-
-                <div id="extension-count" class="extension-count-badge"></div>
-              </div>
-
-              <!-- カードリスト -->
-              <div id="extension-list" class="extension-cards-list"></div>
-
-              <!-- 空状態 -->
-              <div id="empty-state" class="empty-placeholder" hidden>
-                <div class="empty-icon">🔍</div>
-                <h3>該当する拡張機能が見つかりません</h3>
-                <p>検索条件やカテゴリを変更してみてください。</p>
-                <button id="reset-filters-btn" class="btn btn-secondary" type="button">すべてのフィルターを解除</button>
-              </div>
-            </div>
-
-            <!-- 右サイドバー（フィルター） -->
-            <aside class="list-sidebar" aria-label="フィルター">
-              <div class="sidebar-card">
-                <div class="sidebar-header">
-                  <h3>カテゴリ</h3>
-                  <button id="clear-category-btn" class="sidebar-clear-btn" type="button">クリア</button>
-                </div>
-                <div id="sidebar-categories" class="category-filter-list"></div>
-              </div>
-
-              <div class="sidebar-card">
-                <div class="sidebar-header">
-                  <h3>環境・互換性</h3>
-                </div>
-                <ul class="meta-check-list">
-                  <li class="meta-check-item">
-                    <span class="status-indicator online"></span>
-                    <span>TurboWarp 互換</span>
-                  </li>
-                  <li class="meta-check-item">
-                    <span class="status-indicator ready"></span>
-                    <span>JavaScript 配布</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="sidebar-card sidebar-banner">
-                <h4>拡張機能を追加したい方へ</h4>
-                <p>GitHubの <code>data/extensions.json</code> と <code>extensions/</code> を編集してPRを作成すると、このストアに掲載されます。</p>
-                <a class="btn btn-outline" href="https://github.com/Ika-Udon/extensions" target="_blank" rel="noopener noreferrer">READMEを見る</a>
-              </div>
-            </aside>
-          </div>
-
-          <!-- 詳細ビュー -->
-          <div id="detail-view" class="detail-layout" hidden>
-            <div class="detail-container">
-              <a class="back-link" href="#/">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-                <span>一覧に戻る</span>
-              </a>
-              <div id="extension-detail" class="detail-content-grid"></div>
-            </div>
-          </div>
-
-          <!-- 404ビュー -->
-          <div id="not-found-view" class="empty-placeholder" hidden>
-            <div class="empty-icon">404</div>
-            <h2>拡張機能が見つかりませんでした</h2>
-            <p>指定された拡張機能は存在しないか、移動した可能性があります。</p>
-            <a class="btn btn-primary" href="#/">ストアトップに戻る</a>
-          </div>
-        </main>
+        </nav>
       </div>
-    </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main id="main-content" class="site-main" tabindex="-1">
+      <!-- 状態通知 -->
+      <div id="loading" class="state-container" aria-live="polite">
+        <div class="google-spinner"></div>
+        <p>拡張機能を読み込んでいます…</p>
+      </div>
+      <div id="error" class="state-container state-error" hidden aria-live="assertive"></div>
+
+      <!-- 一覧ビュー -->
+      <div id="list-view" hidden>
+        <!-- ヒーロー & 検索セクション -->
+        <section class="hero-section">
+          <div class="hero-container">
+            <h1 class="hero-title">TurboWarp を、もっと自由に。</h1>
+            <p class="hero-subtitle">つくる楽しさを加速する、自作拡張機能コレクション</p>
+
+            <!-- Google風 検索バー -->
+            <div class="search-box">
+              <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input id="search-input" type="search" placeholder="拡張機能の名前、機能、キーワードを検索" aria-label="拡張機能を検索" autocomplete="off" />
+              <button id="search-clear" class="search-clear" type="button" aria-label="検索をクリア" hidden>×</button>
+            </div>
+
+            <!-- カテゴリチップ -->
+            <div id="category-chips" class="category-chips-bar" aria-label="カテゴリー一覧"></div>
+          </div>
+        </section>
+
+        <!-- 一覧コンテンツセクション -->
+        <section class="content-section">
+          <div class="section-container">
+            <!-- ツールバー（件数 & ソート） -->
+            <div class="list-toolbar">
+              <div id="extension-count" class="result-count"></div>
+              <div class="sort-wrapper">
+                <label for="sort-select" class="sort-label">並び替え:</label>
+                <select id="sort-select" class="sort-dropdown">
+                  <option value="relevance">おすすめ順</option>
+                  <option value="updated">更新日順</option>
+                  <option value="name">名前順</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- カードグリッド -->
+            <div id="extension-list" class="cards-grid"></div>
+
+            <!-- 該当なし -->
+            <div id="empty-state" class="empty-state" hidden>
+              <div class="empty-illustration">🔍</div>
+              <h2>一致する拡張機能がありません</h2>
+              <p>検索キーワードや選択中のカテゴリを変更してみてください。</p>
+              <button id="reset-filters-btn" class="btn btn-outline" type="button">すべてのフィルターを解除</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 詳細ビュー -->
+      <div id="detail-view" class="detail-section" hidden>
+        <div class="section-container detail-container">
+          <a class="back-btn" href="#/">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            <span>拡張機能一覧に戻る</span>
+          </a>
+
+          <article id="extension-detail" class="detail-card-panel"></article>
+        </div>
+      </div>
+
+      <!-- 404ビュー -->
+      <div id="not-found-view" class="empty-state" hidden>
+        <div class="empty-illustration">404</div>
+        <h2>拡張機能が見つかりませんでした</h2>
+        <p>指定されたURLの拡張機能は存在しないか、移動した可能性があります。</p>
+        <a class="btn btn-primary" href="#/">トップに戻る</a>
+      </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="footer-left">
+          <p>© 2026 TurboWarp Extensions Library</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://turbowarp.org" target="_blank" rel="noopener noreferrer">TurboWarp 公式</a>
+          <a href="https://github.com/Ika-Udon/extensions" target="_blank" rel="noopener noreferrer">GitHub リポジトリ</a>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

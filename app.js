@@ -20,13 +20,11 @@ const elements = {
   extensionCount: document.querySelector("#extension-count"),
   extensionDetail: document.querySelector("#extension-detail"),
   emptyState: document.querySelector("#empty-state"),
-  categoryTabs: document.querySelector("#category-tabs"),
-  sidebarCategories: document.querySelector("#sidebar-categories"),
+  categoryChips: document.querySelector("#category-chips"),
   searchInput: document.querySelector("#search-input"),
   searchClear: document.querySelector("#search-clear"),
   sortSelect: document.querySelector("#sort-select"),
-  resetFiltersBtn: document.querySelector("#reset-filters-btn"),
-  clearCategoryBtn: document.querySelector("#clear-category-btn")
+  resetFiltersBtn: document.querySelector("#reset-filters-btn")
 };
 
 function formatDate(dateString) {
@@ -96,149 +94,86 @@ function filterAndSortExtensions(extensions, selectedCategory, searchQuery, sort
   });
 }
 
-function renderCategoryTabs() {
-  elements.categoryTabs.replaceChildren();
+function renderCategoryChips() {
+  elements.categoryChips.replaceChildren();
 
   for (const category of state.categories) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "category-tab-btn";
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "category-chip";
     if (category === state.selectedCategory) {
-      button.classList.add("active");
+      chip.classList.add("active");
     }
-    button.textContent = category;
+    chip.textContent = category;
 
-    button.addEventListener("click", () => {
+    chip.addEventListener("click", () => {
       state.selectedCategory = category;
-      renderCategoryTabs();
-      renderSidebarCategories();
+      renderCategoryChips();
       renderList();
     });
 
-    elements.categoryTabs.append(button);
-  }
-}
-
-function renderSidebarCategories() {
-  elements.sidebarCategories.replaceChildren();
-
-  for (const category of state.categories) {
-    const item = document.createElement("div");
-    item.className = "filter-category-item";
-    if (category === state.selectedCategory) {
-      item.classList.add("active");
-    }
-
-    const nameSpan = document.createElement("span");
-    nameSpan.textContent = category;
-
-    const countSpan = document.createElement("span");
-    const count =
-      category === DEFAULT_CATEGORY
-        ? state.extensions.length
-        : state.extensions.filter((ext) => ext.category === category).length;
-    countSpan.textContent = String(count);
-
-    item.append(nameSpan, countSpan);
-
-    item.addEventListener("click", () => {
-      state.selectedCategory = category;
-      renderCategoryTabs();
-      renderSidebarCategories();
-      renderList();
-    });
-
-    elements.sidebarCategories.append(item);
+    elements.categoryChips.append(chip);
   }
 }
 
 function createExtensionCard(extension) {
   const card = document.createElement("article");
-  card.className = "extension-row-card";
+  card.className = "extension-card";
 
-  // アイコンボックス
-  const iconBox = document.createElement("div");
-  iconBox.className = "card-icon-box";
-  iconBox.textContent = getInitialLetter(extension.name);
+  // 上部（アイコン ＋ タイトル/作者）
+  const cardTop = document.createElement("div");
+  cardTop.className = "card-top";
 
-  // コンテンツ
-  const content = document.createElement("div");
-  content.className = "card-content";
+  const icon = document.createElement("div");
+  icon.className = "card-icon";
+  icon.textContent = getInitialLetter(extension.name);
 
-  // タイトル行
-  const titleRow = document.createElement("div");
-  titleRow.className = "card-title-row";
+  const heading = document.createElement("div");
+  heading.className = "card-heading";
 
-  const title = document.createElement("h3");
-  title.className = "card-title";
-  title.textContent = extension.name;
+  const name = document.createElement("h3");
+  name.className = "card-name";
+  name.textContent = extension.name;
 
-  const author = document.createElement("span");
-  author.className = "card-author";
-  author.textContent = "by ";
-  const authorName = document.createElement("span");
-  authorName.textContent = extension.author || "コミュニティ";
-  author.append(authorName);
+  const authorBadge = document.createElement("span");
+  authorBadge.className = "card-author-badge";
+  authorBadge.textContent = `by ${extension.author || "コミュニティ"}`;
 
-  titleRow.append(title, author);
+  heading.append(name, authorBadge);
+  cardTop.append(icon, heading);
 
-  // サマリー
-  const summary = document.createElement("p");
-  summary.className = "card-summary";
-  summary.textContent = extension.summary;
+  // 説明文
+  const desc = document.createElement("p");
+  desc.className = "card-desc";
+  desc.textContent = extension.summary;
 
-  // タグ行
-  const tagsRow = document.createElement("div");
-  tagsRow.className = "card-tags-row";
+  // 下部（タグ ＋ アクション）
+  const cardBottom = document.createElement("div");
+  cardBottom.className = "card-bottom";
+
+  const tags = document.createElement("div");
+  tags.className = "card-tags";
 
   if (extension.category) {
-    const catTag = document.createElement("span");
-    catTag.className = "tag-pill category-pill";
-    catTag.textContent = extension.category;
-    tagsRow.append(catTag);
+    const categoryBadge = document.createElement("span");
+    categoryBadge.className = "tag-badge category-badge";
+    categoryBadge.textContent = extension.category;
+    tags.append(categoryBadge);
   }
 
-  if (Array.isArray(extension.tags)) {
-    for (const tag of extension.tags) {
-      const tagPill = document.createElement("span");
-      tagPill.className = "tag-pill";
-      tagPill.textContent = tag;
-      tagsRow.append(tagPill);
-    }
-  }
+  const verBadge = document.createElement("span");
+  verBadge.className = "tag-badge";
+  verBadge.textContent = `v${extension.version}`;
+  tags.append(verBadge);
 
-  content.append(titleRow, summary, tagsRow);
+  const linkAction = document.createElement("span");
+  linkAction.className = "card-link-action";
+  linkAction.textContent = "詳細を見る →";
 
-  // アクション & 統計列
-  const actionsCol = document.createElement("div");
-  actionsCol.className = "card-actions-col";
+  cardBottom.append(tags, linkAction);
 
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "btn btn-primary";
-  button.textContent = "+ 詳細・DL";
-  button.addEventListener("click", (event) => {
-    event.stopPropagation();
-    window.location.hash = `#/extensions/${encodeURIComponent(extension.id)}`;
-  });
+  card.append(cardTop, desc, cardBottom);
 
-  const stats = document.createElement("div");
-  stats.className = "card-stats";
-
-  const versionSpan = document.createElement("span");
-  versionSpan.className = "stat-item";
-  versionSpan.textContent = `v${extension.version}`;
-
-  const updatedSpan = document.createElement("span");
-  updatedSpan.className = "stat-item";
-  updatedSpan.textContent = formatDate(extension.updatedAt);
-
-  stats.append(versionSpan, updatedSpan);
-  actionsCol.append(button, stats);
-
-  card.append(iconBox, content, actionsCol);
-
-  // カード全体のクリックで詳細へ
   card.addEventListener("click", () => {
     window.location.hash = `#/extensions/${encodeURIComponent(extension.id)}`;
   });
@@ -272,43 +207,43 @@ function renderList() {
 }
 
 function createChangelogTimeline(changelog) {
-  const timeline = document.createElement("ul");
-  timeline.className = "changelog-timeline";
+  const list = document.createElement("ul");
+  list.className = "changelog-list";
 
   const sorted = [...changelog].sort((a, b) => (b.date || "").localeCompare(a.date || ""));
 
   for (const entry of sorted) {
     const item = document.createElement("li");
-    item.className = "changelog-entry";
+    item.className = "changelog-item";
 
-    const header = document.createElement("div");
-    header.className = "changelog-entry-header";
+    const head = document.createElement("div");
+    head.className = "changelog-head";
 
-    const versionSpan = document.createElement("span");
-    versionSpan.className = "changelog-version";
-    versionSpan.textContent = `v${entry.version}`;
+    const ver = document.createElement("span");
+    ver.className = "changelog-ver";
+    ver.textContent = `v${entry.version}`;
 
-    const dateSpan = document.createElement("span");
-    dateSpan.className = "changelog-date";
-    dateSpan.textContent = formatDate(entry.date);
+    const time = document.createElement("span");
+    time.className = "changelog-time";
+    time.textContent = formatDate(entry.date);
 
-    header.append(versionSpan, dateSpan);
+    head.append(ver, time);
 
-    const ul = document.createElement("ul");
-    ul.className = "changelog-changes-list";
+    const bullets = document.createElement("ul");
+    bullets.className = "changelog-bullets";
     if (Array.isArray(entry.changes)) {
       for (const change of entry.changes) {
         const li = document.createElement("li");
         li.textContent = change;
-        ul.append(li);
+        bullets.append(li);
       }
     }
 
-    item.append(header, ul);
-    timeline.append(item);
+    item.append(head, bullets);
+    list.append(item);
   }
 
-  return timeline;
+  return list;
 }
 
 function renderDetail(extension) {
@@ -317,47 +252,43 @@ function renderDetail(extension) {
 
   elements.extensionDetail.replaceChildren();
 
-  // メインカラム
-  const mainCol = document.createElement("div");
-  mainCol.className = "detail-main-col";
-
-  // ヒーローパネル
-  const heroPanel = document.createElement("div");
-  heroPanel.className = "detail-hero-panel";
+  // ヘッダー行
+  const headerRow = document.createElement("div");
+  headerRow.className = "detail-header-row";
 
   const icon = document.createElement("div");
-  icon.className = "detail-hero-icon";
+  icon.className = "detail-icon-large";
   icon.textContent = getInitialLetter(extension.name);
 
-  const heroBody = document.createElement("div");
-  heroBody.className = "detail-hero-body";
+  const headerInfo = document.createElement("div");
+  headerInfo.className = "detail-header-info";
 
-  const titleLine = document.createElement("div");
-  titleLine.className = "detail-title-line";
+  const titleWrap = document.createElement("div");
+  titleWrap.className = "detail-title-wrap";
 
   const title = document.createElement("h1");
-  title.className = "detail-title";
+  title.className = "detail-main-title";
   title.textContent = extension.name;
 
-  const versionTag = document.createElement("span");
-  versionTag.className = "tag-pill category-pill";
-  versionTag.textContent = `v${extension.version}`;
+  const verBadge = document.createElement("span");
+  verBadge.className = "tag-badge category-badge";
+  verBadge.textContent = `v${extension.version}`;
 
-  titleLine.append(title, versionTag);
+  titleWrap.append(title, verBadge);
 
-  const authorLine = document.createElement("div");
-  authorLine.className = "detail-author-line";
-  authorLine.textContent = "作成者: ";
+  const metaText = document.createElement("p");
+  metaText.className = "detail-meta-text";
+  metaText.textContent = "作成者: ";
   const authorStrong = document.createElement("strong");
   authorStrong.textContent = extension.author || "コミュニティ";
-  authorLine.append(authorStrong);
+  metaText.append(authorStrong);
 
   const summary = document.createElement("p");
-  summary.className = "card-summary";
+  summary.className = "card-desc";
   summary.textContent = extension.summary;
 
-  const actionsRow = document.createElement("div");
-  actionsRow.className = "detail-actions-row";
+  const actions = document.createElement("div");
+  actions.className = "detail-actions";
 
   const downloadBtn = document.createElement("a");
   downloadBtn.className = "btn btn-primary";
@@ -372,79 +303,69 @@ function renderDetail(extension) {
   openEditorBtn.rel = "noopener noreferrer";
   openEditorBtn.textContent = "TurboWarpで開く ↗";
 
-  actionsRow.append(downloadBtn, openEditorBtn);
-  heroBody.append(titleLine, authorLine, summary, actionsRow);
-  heroPanel.append(icon, heroBody);
+  actions.append(downloadBtn, openEditorBtn);
+  headerInfo.append(titleWrap, metaText, summary, actions);
+  headerRow.append(icon, headerInfo);
 
-  // 説明カード
-  const descCard = document.createElement("div");
-  descCard.className = "detail-card";
+  // 説明ブロック
+  const descBlock = document.createElement("section");
+  descBlock.className = "detail-block";
 
-  const descHeading = document.createElement("h3");
-  descHeading.textContent = "拡張機能の説明";
+  const descTitle = document.createElement("h2");
+  descTitle.textContent = "拡張機能の詳細";
 
-  const descText = document.createElement("p");
-  descText.className = "detail-description-text";
-  descText.textContent = extension.description;
+  const descContent = document.createElement("p");
+  descContent.className = "detail-description";
+  descContent.textContent = extension.description;
 
-  descCard.append(descHeading, descText);
+  descBlock.append(descTitle, descContent);
 
-  // 変更履歴カード
-  const changelogCard = document.createElement("div");
-  changelogCard.className = "detail-card";
+  // メタ情報グリッド
+  const metaBlock = document.createElement("section");
+  metaBlock.className = "detail-block";
 
-  const changelogHeading = document.createElement("h3");
-  changelogHeading.textContent = "バージョン更新履歴";
+  const metaTitle = document.createElement("h2");
+  metaTitle.textContent = "仕様・メタ情報";
 
-  const changelogContent = createChangelogTimeline(extension.changelog || []);
-  changelogCard.append(changelogHeading, changelogContent);
+  const metaGrid = document.createElement("div");
+  metaGrid.className = "meta-grid";
 
-  mainCol.append(heroPanel, descCard, changelogCard);
-
-  // サイドカラム（メタ情報）
-  const sideCol = document.createElement("div");
-  sideCol.className = "detail-side-col";
-
-  const metaCard = document.createElement("div");
-  metaCard.className = "sidebar-card";
-
-  const metaHeader = document.createElement("div");
-  metaHeader.className = "sidebar-header";
-  const metaTitle = document.createElement("h3");
-  metaTitle.textContent = "メタ情報";
-  metaHeader.append(metaTitle);
-
-  const metaList = document.createElement("ul");
-  metaList.className = "meta-info-list";
-
-  const metaItems = [
+  const metaFields = [
     { label: "最新バージョン", value: `v${extension.version}` },
-    { label: "更新日", value: formatDate(extension.updatedAt) },
+    { label: "最終更新日", value: formatDate(extension.updatedAt) },
     { label: "カテゴリ", value: extension.category || "その他" },
-    { label: "ファイル名", value: extension.file.split("/").pop() },
-    { label: "プラットフォーム", value: "TurboWarp" }
+    { label: "ファイル名", value: extension.file.split("/").pop() }
   ];
 
-  for (const item of metaItems) {
-    const li = document.createElement("li");
-    li.className = "meta-info-item";
+  for (const field of metaFields) {
+    const fieldDiv = document.createElement("div");
+    fieldDiv.className = "meta-field";
 
     const labelSpan = document.createElement("span");
-    labelSpan.className = "meta-label";
-    labelSpan.textContent = item.label;
+    labelSpan.className = "meta-field-label";
+    labelSpan.textContent = field.label;
 
     const valueSpan = document.createElement("span");
-    valueSpan.className = "meta-value";
-    valueSpan.textContent = item.value;
+    valueSpan.className = "meta-field-value";
+    valueSpan.textContent = field.value;
 
-    li.append(labelSpan, valueSpan);
-    metaList.append(li);
+    fieldDiv.append(labelSpan, valueSpan);
+    metaGrid.append(fieldDiv);
   }
 
-  metaCard.append(metaHeader, metaList);
-  sideCol.append(metaCard);
+  metaBlock.append(metaTitle, metaGrid);
 
-  elements.extensionDetail.append(mainCol, sideCol);
+  // 変更履歴ブロック
+  const changelogBlock = document.createElement("section");
+  changelogBlock.className = "detail-block";
+
+  const changelogTitle = document.createElement("h2");
+  changelogTitle.textContent = "バージョン更新履歴";
+
+  const changelogList = createChangelogTimeline(extension.changelog || []);
+  changelogBlock.append(changelogTitle, changelogList);
+
+  elements.extensionDetail.append(headerRow, descBlock, metaBlock, changelogBlock);
 }
 
 function renderNotFound() {
@@ -467,14 +388,12 @@ function renderRoute() {
 }
 
 function setupEventListeners() {
-  // 検索インプット
   elements.searchInput.addEventListener("input", (event) => {
     state.searchQuery = event.target.value;
     elements.searchClear.hidden = !state.searchQuery;
     renderList();
   });
 
-  // 検索クリアボタン
   elements.searchClear.addEventListener("click", () => {
     state.searchQuery = "";
     elements.searchInput.value = "";
@@ -482,32 +401,20 @@ function setupEventListeners() {
     renderList();
   });
 
-  // ソート選択
   elements.sortSelect.addEventListener("change", (event) => {
     state.sortBy = event.target.value;
     renderList();
   });
 
-  // フィルター全解除
   elements.resetFiltersBtn.addEventListener("click", () => {
     state.selectedCategory = DEFAULT_CATEGORY;
     state.searchQuery = "";
     elements.searchInput.value = "";
     elements.searchClear.hidden = true;
-    renderCategoryTabs();
-    renderSidebarCategories();
+    renderCategoryChips();
     renderList();
   });
 
-  // カテゴリクリア
-  elements.clearCategoryBtn.addEventListener("click", () => {
-    state.selectedCategory = DEFAULT_CATEGORY;
-    renderCategoryTabs();
-    renderSidebarCategories();
-    renderList();
-  });
-
-  // ルーティング
   window.addEventListener("hashchange", renderRoute);
 }
 
@@ -529,8 +436,7 @@ async function start() {
 
     elements.loading.hidden = true;
     setupEventListeners();
-    renderCategoryTabs();
-    renderSidebarCategories();
+    renderCategoryChips();
     renderRoute();
   } catch (error) {
     elements.loading.hidden = true;

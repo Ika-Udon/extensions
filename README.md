@@ -1,6 +1,6 @@
 # TurboWarp 拡張機能ライブラリ
 
-GitHub Pagesで公開する、TurboWarp拡張機能の静的な配布サイトです。Modrinth風のモダンなUIを採用しています。
+GitHub Pagesで公開する、TurboWarp拡張機能の静的な配布サイトです。Google公式サイト風のシンプルで分かりやすいデザインを採用しています。
 
 ## GitHub Pagesで公開する
 
