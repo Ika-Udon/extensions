@@ -1,6 +1,6 @@
 {
   "id": "shader_extention",
-  "name": "Shader+",
+  "name": "shader_extention",
   "author": "Ika-Udon",
   "category": "描画・演出",
   "tags": ["TurboWarp", "シェーダー", "GLSL", "WebGL", "AI", "Gemini"],
@@ -14,7 +14,7 @@
       "version": "α",
       "date": "2026-08-16",
       "changes": [
-        "Shader+ α版を公開しました。"
+        "α版を公開しました。"
       ]
     }
   ]
