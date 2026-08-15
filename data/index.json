@@ -8,9 +8,6 @@
     "ゲーム開発"
   ],
   "extensions": [
-    "shader-plus",
-    "sample-extension",
-    "canvas-draw",
-    "network-fetch"
+    "shader_extention"
   ]
 }
