@@ -5,7 +5,7 @@
   "category": "描画・演出",
   "tags": ["TurboWarp", "シェーダー", "GLSL", "WebGL", "AI", "Gemini"],
   "summary": "TurboWarp上でGLSLシェーダーやスプライト・全画面エフェクトを自在に操り、Gemini AIによるコード生成も可能な高機能拡張です。",
-  "description": "WebGL / GLSLシェーダーをTurboWarp内で直接作成・実行できる超高機能な拡張機能です。\nスプライト単体や全画面へのシェーダー適用、ピンポンバッファによるマルチパス合成（統合シェーダー）、変数のScratchブロック連携、そしてGemini AIアシスタントによるシェーダーの自動生成・エラー修復・解説機能を搭載しています。",
+  "description": "WebGL / GLSLシェーダーをTurboWarp内で直接作成・実行できる超高機能な拡張機能です。JSの連携機能もあります。\nスプライト単体や全画面へのシェーダー適用、ピンポンバッファによるマルチパス合成（統合シェーダー）、変数のScratchブロック連携、そしてGemini AIアシスタントによるシェーダーの自動生成・エラー修復・解説機能を搭載しています。",
   "file": "extensions/shader_extention.js",
   "version": "α",
   "updatedAt": "2026-08-16",
